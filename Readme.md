@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url]
 
 * Студент: [Михаил Ахполов](https://up.htmlacademy.ru/javascript/20/user/623179).
-* Наставник: Артём Матковский.
+* Наставник: [Артём Матковский](https://htmlacademy.ru/profile/id1151767).
 
 ---
 
