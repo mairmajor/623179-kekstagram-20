@@ -25,120 +25,15 @@ var NAMES_ARRAY = [
     "Бероева Шоколад",
     "Бесаева Аргентина",
     "Бестаев Гарик",
-    "Билаонова Рио-Рита",
-    "Билаонов Чатуранга",
-    "Бирагов Вайнер",
-    "Болиев Хусейн",
-    "Боциев Барон",
-    "Боцоев Роланд",
-    "Булацева Пиффа",
-    "Бязров Кромвель",
-    "Валиев Дяноз",
-    "Габараев Ясон",
-    "Габеев Аладдин",
-    "Гагиев Пушкин",
-    "Гаглоева Мимоза",
-    "Гадзаов Талисман",
-    "Газаев Цезарь",
-    "Гобозов Роланд",
-    "Гогниев Спартак",
-    "Гочикаев Пушкин",
-    "Гудиев Великан",
-    "Гусов Ленгиор",
-    "Дедегкаев Памир",
-    "Джагаев Северян",
-    "Джанаев Север",
-    "Джанаев Слава",
-    "Джимиев Шекспир",
-    "Джиоев Джета",
-    "Джиоев Зюдвиг",
-    "Джиоев Рамзес",
-    "Дзаттиаты Анисим",
-    "Дзоблаев Шмидт",
-    "Кабисов Герой",
-    "Кадзаев Тельман",
-    "Каллагов Орлов",
-    "Калухова Кулина",
-    "Келехсаева Барышня",
-    "Кибизов Фердинанд",
-    "Козаев Кифар",
-    "Козаев Комета",
-    "Козаев Сувор",
-    "Козаев Ушанг",
-    "Кудзиева Красавица",
-    "Кудухов Ленин",
-    "Кудухов Чугун",
-    "Кудухов Юпитер",
-    "Кулаева Литосфера",
-    "Кулов Мустангер",
-    "Кулумбегов Борман",
-    "Кулумбеков Гранит",
-    "Купеев Феномен",
-    "Магкаев Доги",
-    "Макиев Виконт",
-    "Макоев Печенье",
-    "Мамаев Марсель",
-    "Мамитов Звезда",
-    "Мамитов Капитан",
-    "Маргиев Геббельс",
-    "Маргиев Капот",
-    "Маргиев Роджерс",
-    "Марзаев Стахан",
-    "Меликов Рафаэль",
-    "Музаева Маслина",
-    "Музиев Таран",
-    "Надгериев Рамадан",
-    "Ортабаев Уарки",
-    "Пересаева Конфета",
-    "Персаты Шпала",
-    "Плиев Листанбер",
-    "Плиев Пушкин",
-    "Плиев Тарзан",
-    "Пухаев Сари",
-    "Саламов Ричард",
-    "Сиукаев Афанас",
-    "Татров Вилюш",
-    "Теблоева Марго",
-    "Тедеев Граф",
-    "Тедеев Карлик",
-    "Тедеев Климент",
-    "Тедеев Лозунг",
-    "Тедеев Онегин",
-    "Тедеев Рузвельт",
-    "Тибилов Апполон",
-    "Тибилов Рудольф",
-    "Тигиев Барон",
-    "Тигиев Рабинзон",
-    "Туаев Мел",
-    "Туаев Тарзан",
-    "Туаева Зорька",
-    "Тулаев Потомок",
-    "Фидаров Японец",
-    "Хадзиев Комбайн",
-    "Хамикоев Арамис",
-    "Хамицаев Наполеон",
-    "Хамикоев Чапай",
-    "Хасиев Вильгельм",
-    "Хестанова Победа",
-    "Хубаев Метро",
-    "Хубулов Майор",
-    "Хубулова Граната",
-    "Хугаев Мвагрез",
-    "Цаллагова Фиалка",
-    "Цогоев Тегеран",
-    "Цогоева Антенна",
-    "Цогоева Планета",
-    "Цховребов Цицерон",
-    "Челохсаев Капрал",
-    "Четоев Сталин",
-    "Чибиров Людвиг",
-    "Чибиров Труба",
-    "Чховребов Цезарь",
 ];
 
 var pictureTemplate = document.querySelector("#picture").content;
 var fragment = document.createDocumentFragment();
 var picturesBlock = document.querySelector(".pictures");
+var bigPicture = document.querySelector(".big-picture");
+var body = document.querySelector("body");
+var socialComments = bigPicture.querySelector(".social__comments");
+var socialComment = socialComments.querySelector(".social__comment");
 
 var renderInteger = function(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
@@ -182,12 +77,42 @@ var createPictures = function(picture) {
     return pictureElement;
 };
 
-var addElement = function(renderWay, elementType) {
+var addElement = function(renderWay, elementType, block) {
     for (var i = 0; i < elementType.length; i++) {
         fragment.appendChild(renderWay(elementType[i]));
     }
-    picturesBlock.appendChild(fragment);
+    block.appendChild(fragment);
+};
+
+var addBigPictureComments = function(bigPictureComment) {
+    var commentElement = socialComment.cloneNode(true);
+
+    commentElement.querySelector(".social__picture").src =
+        bigPictureComment.avatar;
+    commentElement.querySelector(".social__picture").alt = bigPictureComment.name;
+    commentElement.querySelector(".social__text").textContent =
+        bigPictureComment.message;
+
+    return commentElement;
+};
+
+var fillBigPicture = function(pictures) {
+    bigPicture.querySelector(".big-picture__img").src = pictures[0].url;
+    bigPicture.querySelector(".likes-count").textContent = pictures[0].likes;
+    bigPicture.querySelector(".comments-count").textContent =
+        pictures[0].comments.length;
+    bigPicture.querySelector(".social__comments").src = pictures[0].commentBlock;
+    bigPicture.querySelector(".social__caption").src = pictures[0].description;
+
+    return bigPicture;
 };
 
 var pictures = createAvatar(25);
-addElement(createPictures, pictures);
+var bigPictureComments = pictures[0].comments;
+addElement(createPictures, pictures, picturesBlock);
+bigPicture.classList.remove("hidden");
+fillBigPicture(pictures);
+bigPicture.querySelector(".social__comment-count").classList.add("hidden");
+bigPicture.querySelector(".comments-loader").classList.add("hidden");
+body.classList.add("modal-open");
+addElement(addBigPictureComments, bigPictureComments, socialComments);
