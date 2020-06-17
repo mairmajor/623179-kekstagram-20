@@ -96,13 +96,13 @@ var addBigPictureComments = function(bigPictureComment) {
     return commentElement;
 };
 
-var fillBigPicture = function(pictures) {
-    bigPicture.querySelector(".big-picture__img").src = pictures[0].url;
-    bigPicture.querySelector(".likes-count").textContent = pictures[0].likes;
+var fillBigPicture = function(pictureData) {
+    bigPicture.querySelector(".big-picture__img").src = pictureData.url;
+    bigPicture.querySelector(".likes-count").textContent = pictureData.likes;
     bigPicture.querySelector(".comments-count").textContent =
-        pictures[0].comments.length;
-    bigPicture.querySelector(".social__comments").src = pictures[0].commentBlock;
-    bigPicture.querySelector(".social__caption").src = pictures[0].description;
+        pictureData.comments.length;
+    bigPicture.querySelector(".social__comments").src = pictureData.commentBlock;
+    bigPicture.querySelector(".social__caption").src = pictureData.description;
 
     return bigPicture;
 };
@@ -111,7 +111,7 @@ var pictures = createAvatar(25);
 var bigPictureComments = pictures[0].comments;
 addElement(createPictures, pictures, picturesBlock);
 bigPicture.classList.remove("hidden");
-fillBigPicture(pictures);
+fillBigPicture(pictures[0]);
 bigPicture.querySelector(".social__comment-count").classList.add("hidden");
 bigPicture.querySelector(".comments-loader").classList.add("hidden");
 body.classList.add("modal-open");
