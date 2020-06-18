@@ -97,12 +97,17 @@ var addBigPictureComments = function(bigPictureComment) {
 };
 
 var fillBigPicture = function(pictureData) {
+    bigPicture.classList.remove("hidden");
     bigPicture.querySelector(".big-picture__img").src = pictureData.url;
     bigPicture.querySelector(".likes-count").textContent = pictureData.likes;
     bigPicture.querySelector(".comments-count").textContent =
         pictureData.comments.length;
     bigPicture.querySelector(".social__comments").src = pictureData.commentBlock;
     bigPicture.querySelector(".social__caption").src = pictureData.description;
+    bigPicture.querySelector(".social__comment-count").classList.add("hidden");
+    bigPicture.querySelector(".comments-loader").classList.add("hidden");
+    body.classList.add("modal-open");
+    addElement(addBigPictureComments, bigPictureComments, socialComments);
 
     return bigPicture;
 };
@@ -110,9 +115,4 @@ var fillBigPicture = function(pictureData) {
 var pictures = createAvatar(25);
 var bigPictureComments = pictures[0].comments;
 addElement(createPictures, pictures, picturesBlock);
-bigPicture.classList.remove("hidden");
 fillBigPicture(pictures[0]);
-bigPicture.querySelector(".social__comment-count").classList.add("hidden");
-bigPicture.querySelector(".comments-loader").classList.add("hidden");
-body.classList.add("modal-open");
-addElement(addBigPictureComments, bigPictureComments, socialComments);
