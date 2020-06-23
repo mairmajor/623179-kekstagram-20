@@ -34,6 +34,9 @@ var bigPicture = document.querySelector(".big-picture");
 var body = document.querySelector("body");
 var socialComments = bigPicture.querySelector(".social__comments");
 var socialComment = socialComments.querySelector(".social__comment");
+var uploadFile = document.querySelector("#upload-file");
+var uploadCancel = document.querySelector("#upload-cancel");
+var effectLevelPin = document.querySelector("..effect-level__pin");
 
 var renderInteger = function(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
@@ -116,3 +119,25 @@ var pictures = createAvatar(25);
 var bigPictureComments = pictures[0].comments;
 addElement(createPictures, pictures, picturesBlock);
 fillBigPicture(pictures[0]);
+
+var closePopup = function() {
+    body.classList.remove("modal-open");
+    document.removeEventListener("keydown", onPopupEscPress);
+};
+var onPopupEscPress = function(evt) {
+    if (evt.key === "Escape") {
+        evt.preventDefault();
+        closePopup();
+        uploadFile.value = "";
+    }
+};
+uploadFile.addEventListener("change", function() {
+    openPopup();
+});
+uploadCancel.addEventListener("change", function() {
+    closePopup();
+    uploadFile.value = "";
+});
+effectLevelPin.addEventListener("mouseup", function() {});
+
+var re = /^#[a-zа-яA-ZА-Я0-9]*$/;
