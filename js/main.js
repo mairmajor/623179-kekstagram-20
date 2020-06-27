@@ -161,6 +161,33 @@ var effectControl = function(evt) {
     uploadPreview.classList.add("effects__preview--" + evt.target.value);
 };
 
+var checkHashtags = function() {
+    textHashtags.addEventListener("input", function() {
+        var hashTagRe = /^#[a-zа-яA-ZА-Я0-9]{1,19}$/;
+        var hashTagsErrorCount = 0;
+        var text = textHashtags.value.trim();
+        var hashTagsArray = text.split(" ");
+        if (text) {
+            for (var i = 0; i < hashTagsArray.length; i++) {
+                if (!hashTagRe.test(hashTagsArray[i])) {
+                    hashTagsErrorCount++;
+                }
+            }
+        }
+        if (hashTagsErrorCount) {
+            textHashtags.setCustomValidity(
+                "Исправьте ошибки в " + hashTagsErrorCount + " хэштеге"
+            );
+            textHashtags.reportValidity();
+        } else if (hashTagsArray.length > 5) {
+            textHashtags.setCustomValidity("Не больше 5 хештегов");
+            textHashtags.reportValidity();
+        } else {
+            textHashtags.setCustomValidity("");
+        }
+    });
+};
+
 var pictures = createAvatar(25);
 var bigPictureComments = pictures[0].comments;
 addElement(createPictures, pictures, picturesBlock);
@@ -174,17 +201,7 @@ uploadCancel.addEventListener("click", function() {
 });
 effectLevelPin.addEventListener("mouseup", function() {});
 
-// var re = /^#[a-zа-яA-ZА-Я0-9]*$/;
-// re.test(textHashtags.value);
 openPopup();
 scaleControl();
 uploadEffects.addEventListener("change", effectControl);
-
-textHashtags.addEventListener("input", function() {
-    var arrayHashtags = textHashtags.value.split(" ");
-    for (var i = 0; i < arrayHashtags.length; i++) {
-        if (arrayHashtags[i].length[0] !== "#") {
-            textHashtags.setCustomValidity("Добавьте символ #");
-        }
-    }
-});
+checkHashtags();
