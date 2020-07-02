@@ -49,7 +49,7 @@
               </fieldset>
 
               <!-- Форма редактирования изображения -->
-              <div class="img-upload__overlay hidden">
+              <div class="img-upload__overlay hidden modal-popup">
                 <div class="img-upload__wrapper">
                   <div class="img-upload__preview-container">
                     <!-- Изменение размера изображения -->
@@ -184,8 +184,8 @@
 
                         <!-- Добавление хэш-тегов и комментария к изображению -->
                         <fieldset class="img-upload__text text">
-                            <input class="text__hashtags" name="hashtags" placeholder="#ХэшТег" />
-                            <textarea class="text__description" name="description" placeholder="Ваш комментарий..."></textarea>
+                            <input class="text__hashtags" name="hashtags" placeholder="#ХэшТег" required />
+                            <textarea class="text__description" name="description" placeholder="Ваш комментарий..." required></textarea>
                         </fieldset>
 
                         <!-- Кнопка для отправки данных на сервер -->
@@ -202,12 +202,12 @@
         </section>
 
         <!-- Полноэкранный показ изображения -->
-        <section class="big-picture overlay hidden">
+        <section class="big-picture overlay hidden modal-popup">
             <h2 class="big-picture__title visually-hidden">Просмотр фотографии</h2>
             <div class="big-picture__preview">
                 <!-- Просмотр изображения -->
-                <div class="big-picture__img">
-                    <img src="img/logo-background-3.jpg" alt="Девушка в купальнике" width="600" height="600" />
+                <div>
+                    <img class="big-picture__img" src="img/logo-background-3.jpg" alt="Девушка в купальнике" width="600" height="600" />
                 </div>
 
                 <!-- Информация об изображении. Подпись, комментарии, количество лайков -->
