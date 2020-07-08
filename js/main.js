@@ -87,6 +87,11 @@ var createPictures = function(picture) {
     pictureElement.querySelector(".picture__comments").textContent =
         picture.comments.length;
 
+    pictureElement
+        .querySelector(".picture__img")
+        .addEventListener("click", function() {
+            fillBigPicture(picture);
+        });
     return pictureElement;
 };
 
@@ -223,7 +228,11 @@ scaleControl();
 uploadEffects.addEventListener("change", effectControl);
 checkHashtags();
 checkComments();
-// ничего из нижевписанного не работает, не понимаю почему
-// picturesArray[0].addEventListener("change", fillBigPicture(pictures[0]));
-// picture[0].addEventListener("change", fillBigPicture(pictures[0]));
-pictures[0].addEventListener("click", fillBigPicture(pictures[0]));
+
+// picturesBlock.addEventListener("click", function(evt) {
+//     var target = evt.target;
+//     if (target && target.matches("img.picture__img")) {
+//         // fillBigPicture(picture[1]);
+//         console.log(this);
+//     }
+// });
