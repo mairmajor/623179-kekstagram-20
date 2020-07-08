@@ -228,11 +228,3 @@ scaleControl();
 uploadEffects.addEventListener("change", effectControl);
 checkHashtags();
 checkComments();
-
-// picturesBlock.addEventListener("click", function(evt) {
-//     var target = evt.target;
-//     if (target && target.matches("img.picture__img")) {
-//         // fillBigPicture(picture[1]);
-//         console.log(this);
-//     }
-// });
