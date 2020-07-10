@@ -44,6 +44,9 @@ var scaleValue = document.querySelector(".scale__control--value");
 var uploadPreview = document.querySelector(".img-upload__preview");
 var uploadEffects = document.querySelector(".img-upload__effects");
 var textHashtags = document.querySelector(".text__hashtags");
+var pictureCancel = document.querySelector("#picture-cancel");
+var modalPopup = document.querySelector(".modal-popup");
+var textComments = document.querySelector(".social__footer-text");
 
 var renderInteger = function(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
@@ -84,6 +87,11 @@ var createPictures = function(picture) {
     pictureElement.querySelector(".picture__comments").textContent =
         picture.comments.length;
 
+    pictureElement
+        .querySelector(".picture__img")
+        .addEventListener("click", function() {
+            fillBigPicture(picture);
+        });
     return pictureElement;
 };
 
@@ -120,20 +128,20 @@ var fillBigPicture = function(pictureData) {
 
     return bigPicture;
 };
-var openPopup = function() {
-    editForm.classList.remove("hidden");
+var openPopup = function(modal) {
+    modal.classList.remove("hidden");
     body.classList.add("modal-open");
     document.addEventListener("keydown", onPopupEscPress);
 };
-var closePopup = function() {
-    editForm.classList.add("hidden");
+var closePopup = function(modal) {
+    modal.classList.add("hidden");
     body.classList.remove("modal-open");
     document.removeEventListener("keydown", onPopupEscPress);
 };
 var onPopupEscPress = function(evt) {
     if (evt.key === "Escape") {
         evt.preventDefault();
-        closePopup();
+        closePopup(modalPopup);
         uploadFile.value = "";
     }
 };
@@ -187,21 +195,36 @@ var checkHashtags = function() {
         }
     });
 };
+var checkComments = function() {
+    textComments.addEventListener("input", function() {
+        if (textComments.value.length > 140) {
+            textComments.setCustomValidity(
+                "Превышено допустимое количество символов"
+            );
+            textComments.reportValidity();
+        } else {
+            textComments.setCustomValidity("");
+        }
+    });
+};
 
 var pictures = createAvatar(25);
 var bigPictureComments = pictures[0].comments;
 addElement(createPictures, pictures, picturesBlock);
-// fillBigPicture(pictures[0]);
 uploadFile.addEventListener("change", function() {
-    openPopup();
+    openPopup(editForm);
 });
 uploadCancel.addEventListener("click", function() {
-    closePopup();
+    closePopup(editForm);
     uploadFile.value = "";
+});
+pictureCancel.addEventListener("click", function() {
+    closePopup(bigPicture);
 });
 effectLevelPin.addEventListener("mouseup", function() {});
 
-openPopup();
+openPopup(editForm);
 scaleControl();
 uploadEffects.addEventListener("change", effectControl);
 checkHashtags();
+checkComments();
