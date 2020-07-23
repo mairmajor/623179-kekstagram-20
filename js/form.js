@@ -40,6 +40,12 @@
         });
     };
     var effectControl = function(evt) {
+        uploadPreview.classList.remove("effects__preview--chrome");
+        uploadPreview.classList.remove("effects__preview--sepia");
+        uploadPreview.classList.remove("effects__preview--marvin");
+        uploadPreview.classList.remove("effects__preview--phobos");
+        uploadPreview.classList.remove("effects__preview--heat");
+        uploadPreview.classList.remove("effects__preview--none");
         uploadPreview.classList.add("effects__preview--" + evt.target.value);
     };
 
